@@ -1,4 +1,4 @@
 red
-blue
+bluish
 green
 yellow
