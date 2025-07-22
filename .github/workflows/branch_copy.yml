@@ -6,7 +6,7 @@ on:
   workflow_dispatch:        # Manual trigger if needed
 
 env:
-  BASE_BRANCH: "develop"    # Change if needed
+  BASE_BRANCH: "test_copy_branch"    # Change if needed
 
 jobs:
   copy_branch:
