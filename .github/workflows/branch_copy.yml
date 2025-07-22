@@ -2,7 +2,7 @@ name: Copy Branch with Timestamp
 
 on:
   schedule:
-    - cron: '*/1 * * * *'  # Every minute (UTC)
+    - cron: '*/5 * * * *'  # Every minute (UTC)
   workflow_dispatch:        # Manual trigger if needed
 
 env:
