@@ -1,0 +1,20 @@
+name: Enforce Branch Naming
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  check-branch-name:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check if branch name starts with OP- followed by numbers
+        run: |
+          echo "Source branch: ${{ github.head_ref }}"
+          if [[ ! "${{ github.head_ref }}" =~ ^OP-[0-9]{5}$ ]]; then
+            echo "❌ Branch name must follow the pattern OP-XXXXX (e.g., OP-12345). Merge Denied!!"
+            exit 1
+          else
+            echo "✅ Branch name is valid. Proceeding to Merge"
+          fi
