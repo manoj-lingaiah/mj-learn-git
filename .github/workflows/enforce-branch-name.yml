@@ -13,7 +13,8 @@ jobs:
         run: |
           echo "Source branch: ${{ github.head_ref }}"
           if [[ ! "${{ github.head_ref }}" =~ ^OP-[0-9]{5,6}/.+$ ]]; then
-            echo "❌ Branch name must follow the pattern OP-XXXXX (e.g., OP-12345). Merge Denied!!"
+            echo "Merge Denied!!!"
+            echo "❌ The source branch name must follow the pattern `OP-12345/description` or `OP-123456/description`. Please rename your branch."
             exit 1
           else
             echo "✅ Branch name is valid. Proceeding to Merge"
