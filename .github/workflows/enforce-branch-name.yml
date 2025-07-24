@@ -12,7 +12,7 @@ jobs:
       - name: Check if branch name starts with OP- followed by numbers
         run: |
           echo "Source branch: ${{ github.head_ref }}"
-          if [[ ! "${{ github.head_ref }}" =~ ^OP-[0-9]{5}$ ]]; then
+          if [[ ! "${{ github.head_ref }}" =~ ^OP-[0-9]{5,6}/.+$ ]]; then
             echo "❌ Branch name must follow the pattern OP-XXXXX (e.g., OP-12345). Merge Denied!!"
             exit 1
           else
