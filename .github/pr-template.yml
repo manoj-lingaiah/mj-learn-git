@@ -1,0 +1,40 @@
+name: Apply PR Template by Branch
+
+on:
+  pull_request:
+    types: [opened]
+
+jobs:
+  set-template:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set PR Template
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+            const branch = context.payload.pull_request.base.ref;
+            let templatePath;
+
+            if (branch === 'PROD') {
+              templatePath = '.github/pr-templates/prod.md';
+            } else if (branch === 'UAT') {
+              templatePath = '.github/pr-templates/uat.md';
+            } else if (branch === 'develop') {
+              templatePath = '.github/pr-templates/develop.md';
+            } else {
+              console.log(`No template for branch: ${branch}`);
+              return;
+            }
+
+            const body = fs.readFileSync(templatePath, 'utf8');
+            await github.rest.pulls.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.payload.pull_request.number,
+              body: body
+            });
